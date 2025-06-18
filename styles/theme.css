@@ -1,0 +1,70 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-image: url("../stuff/cat-gif.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Main poster image */
+.theme-poster {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  z-index: 1;
+}
+
+/* Dancing cat GIFs */
+.cat-dance {
+  position: absolute;
+  width: 300px;
+  height: auto;
+  top: 26%;
+  z-index: 2;
+}
+
+.cat-dance.left {
+  left: 30%;
+}
+
+.cat-dance.right {
+  right: 30%;
+}
+
+/* Standing cat at the bottom */
+.cat-standing {
+  position: absolute;
+  bottom: 1%;
+  left: 36%;
+  width: 110px;
+  z-index: 2;
+}
+
+/* Back button styling */
+.next-button {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  background-color: hotpink;
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 10px;
+  font-size: 16px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+}
