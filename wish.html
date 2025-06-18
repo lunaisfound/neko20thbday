@@ -25,5 +25,52 @@
 
       <a href="index.html" class="next-button">← Back to Start</a>
     </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+      // Import Firebase functions
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+      } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+      import { Timestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+      // Your Firebase config (get from Firebase Console > Project Settings > Web App)
+      const firebaseConfig = {
+        apiKey: "AIzaSyBFrF5x3OEAWgfMWJdnVuRg69A_7qGbQTc",
+        authDomain: "neko-birthday.firebaseapp.com",
+        projectId: "neko-birthday",
+        storageBucket: "neko-birthday.firebasestorage.app",
+        messagingSenderId: "572810174387",
+        appId: "1:572810174387:web:87af976684fcad0f1cf5c6",
+        measurementId: "G-R6R7TEG6VW",
+      };
+
+      // Initialize
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Handle form submission
+      document
+        .querySelector(".guestbook-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const wish = e.target.wish.value;
+
+          try {
+            await addDoc(collection(db, "wishes"), {
+              text: wish,
+              timestamp: Timestamp.now(),
+            });
+            alert("Wish sent! 🎉");
+            e.target.reset();
+          } catch (err) {
+            alert("Error sending wish.");
+            console.error(err);
+          }
+        });
+    </script>
   </body>
 </html>
