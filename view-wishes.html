@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Birthday Wishes</title>
+    <link rel="stylesheet" href="styles/view-wishes.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎉 Birthday Wishes</h1>
+      <div id="wish-list"></div>
+      <a href="index.html" class="back-button">← Back to Invite</a>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+        query,
+        orderBy,
+      } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      const wishList = document.getElementById("wish-list");
+      const wishesQuery = query(
+        collection(db, "wishes"),
+        orderBy("timestamp", "desc")
+      );
+
+      const snapshot = await getDocs(wishesQuery);
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.className = "wish";
+        div.innerHTML = `
+        <p>${data.text}</p>
+        ${
+          data.timestamp?.toDate
+            ? `<small>${data.timestamp.toDate().toLocaleString()}</small>`
+            : ""
+        }
+      `;
+        wishList.appendChild(div);
+      });
+    </script>
+  </body>
+</html>
